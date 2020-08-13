@@ -1,4 +1,5 @@
 // Import MaterialApp and other widgets which we can use to quickly create a material app
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new TodoApp());
@@ -36,7 +37,7 @@ class TodoListState extends State<TodoList> {
   }
 
   Widget _buildTodoItem(String todoText, int index) {
-    todoText = "• $todoText";
+    todoText = "• ${todoText}";
     return new ListTile(
         title: new Text(todoText,
             style: TextStyle(
@@ -86,18 +87,19 @@ class TodoListState extends State<TodoList> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return new AlertDialog(
+          return new CupertinoAlertDialog(
               title: new Text('Mark "${_todoItems[index]}" as done?'),
               actions: <Widget>[
-                new FlatButton(
-                    child: new Text('CANCEL'),
-                    onPressed: () => Navigator.of(context).pop()),
-                new FlatButton(
-                    child: new Text('MARK AS DONE'),
+                CupertinoDialogAction(
+                    child: new Text("Yes"),
                     onPressed: () {
                       _removeTodoItem(index);
                       Navigator.of(context).pop();
-                    })
+                    }),
+                CupertinoDialogAction(
+                    textStyle: TextStyle(color: Colors.red),
+                    child: new Text("No"),
+                    onPressed: () => Navigator.of(context).pop())
               ]);
         });
   }
