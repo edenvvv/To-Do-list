@@ -36,13 +36,17 @@ class TodoListState extends State<TodoList> {
   }
 
   Widget _buildTodoItem(String todoText, int index) {
+    todoText = "• $todoText";
     return new ListTile(
-        title: new Text(todoText), onTap: () => _promptRemoveTodoItem(index));
+        title: new Text(todoText,
+            style: TextStyle(
+                height: 5, fontSize: 20, fontWeight: FontWeight.bold)),
+        onTap: () => _promptRemoveTodoItem(index));
   }
 
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text('Todo List')),
+      appBar: new AppBar(title: new Text('To Do List')),
       body: _buildTodoList(),
       floatingActionButton: new FloatingActionButton(
           onPressed:
